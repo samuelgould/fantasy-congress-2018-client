@@ -1,10 +1,10 @@
 import React from 'react';
-import { searchCandidates } from '../actions/candidates'
+import { connect } from 'react-redux';
+import { searchCandidates } from '../actions/candidates';
 
-export default function(props) {
+export function SearchBar(props) {
     
     const onChange = function(searchString) {
-        console.log(searchString);
         props.dispatch(searchCandidates(searchString));
     };
     
@@ -15,3 +15,5 @@ export default function(props) {
         </form>
     )
 }
+
+export default connect()(SearchBar)

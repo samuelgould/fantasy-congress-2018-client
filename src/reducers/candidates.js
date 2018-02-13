@@ -1,10 +1,14 @@
-import { FETCH_CANDIDATES_REQUEST, FETCH_CANDIDATES_SUCCESS, FETCH_CANDIDATES_ERROR, SEARCH_CANDIDATES  } from '../actions/candidates';
+import { FETCH_CANDIDATES_REQUEST, FETCH_CANDIDATES_SUCCESS, FETCH_CANDIDATES_ERROR, SEARCH_CANDIDATES, FILTER_CANDIDATES_BY_CHAMBER, FILTER_CANDIDATES_BY_PARTY, FILTER_CANDIDATES_BY_STATE, FILTER_ONLY_SHOW_INCUMBENTS } from '../actions/candidates';
 
 const initialState = {
   candidates: [],
   loading: false,
   error: null,
-  searchString: ''
+  searchString: '',
+  chamber: 'both',
+  party: 'all',
+  state: 'all',
+  incumbent: false,
 }
 
 export const reducer = (state = initialState, action) => {
@@ -30,7 +34,33 @@ export const reducer = (state = initialState, action) => {
 	}
 	
 	else if (action.type === SEARCH_CANDIDATES) {
-		
+		return Object.assign({}, state, {
+			searchString: action.searchString
+		})
+	}
+
+	else if (action.type === FILTER_CANDIDATES_BY_CHAMBER) {
+		return Object.assign({}, state, {
+			chamber: action.chamber
+		})
+	}
+
+	else if (action.type === FILTER_CANDIDATES_BY_PARTY) {
+		return Object.assign({}, state, {
+			party: action.party
+		})
+	}
+
+	else if (action.type === FILTER_CANDIDATES_BY_STATE) {
+		return Object.assign({}, state, {
+			state: action.state
+		})
+	}
+
+	else if (action.type === FILTER_ONLY_SHOW_INCUMBENTS) {
+		return Object.assign({}, state, {
+			incumbent: action.incumbent
+		})
 	}
 
 	else {
