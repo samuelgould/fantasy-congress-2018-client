@@ -1,4 +1,27 @@
+import { SubmissionError } from 'redux-form';
+
 import { API_BASE_URL } from '../config'
+
+export const registerUser = user => dispatch => {
+	return fetch(`${API_BASE_URL}/user`, {
+			method: 'POST',
+			headers: {
+					'content-type': 'application/json'
+			},
+			body: JSON.stringify(user)
+	})
+			.then(res => res.json())
+			.catch(err => {
+					const {reason, message, location} = err;
+					if (reason === 'ValidationError') {
+							return Promise.reject(
+									new SubmissionError({
+											[location]: message
+									})
+							);
+					}
+			});
+};
 
 export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST';
 export const fetchUserRequest = () => ({
@@ -17,9 +40,15 @@ export const fetchUserError = error => ({
   error
 });
 
-export const fetchUser = () => dispatch => {
+export const fetchUser = () => (dispatch, getState) => {
 	dispatch(fetchUserRequest());
-	return fetch(`${API_BASE_URL}/user/5a834157f630e47d63527cc5`)
+	const authToken = getState().auth.authToken;
+	return fetch(`${API_BASE_URL}/user/self`, {
+		method: 'GET',
+		headers: {
+				'Authorization': `Bearer ${authToken}`
+		}
+	})
 		.then(res => {
 			if (!res.ok) {
 				return Promise.reject('Something has gone wrong');
@@ -32,4 +61,88 @@ export const fetchUser = () => dispatch => {
 		.catch(err => 
 			dispatch(fetchUserError(err))
 		)
-	}
+}
+
+export const ADD_CANDIDATE_REQUEST = 'ADD_CANDIDATE_REQUEST';
+export const addCandidateRequest = () => ({
+  type: ADD_CANDIDATE_REQUEST
+});
+
+export const ADD_CANDIDATE_SUCCESS = 'ADD_CANDIDATE_SUCCESS';
+export const addCandidateSuccess = user => ({
+	type: ADD_CANDIDATE_SUCCESS,
+	user
+});
+
+export const ADD_CANDIDATE_ERROR = 'ADD_CANDIDATE_ERROR';
+export const addCandidateError = error => ({
+  type: ADD_CANDIDATE_ERROR,
+  error
+});
+
+export const addCandidate = (candidate_id, chamber) => (dispatch, getState) => {
+	dispatch(addCandidateRequest());
+	const authToken = getState().auth.authToken;
+	return fetch(`${API_BASE_URL}/user/self/${chamber}/${candidate_id}`, 
+		{
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+				'Accept': 'application/json',
+				'Authorization': `Bearer ${authToken}`
+			}
+		}).then(res => {
+			if (!res.ok) {
+				return Promise.reject('Something has gone wrong');
+			}
+			return res.json()
+		})
+		.then(user => {
+			dispatch(addCandidateSuccess(user));
+		})
+		.catch(err => 
+			dispatch(addCandidateError(err))
+		)
+}
+
+export const REMOVE_TEAM_MEMBER_REQUEST = 'REMOVE_TEAM_MEMBER_REQUEST';
+export const removeTeamMemberRequest = () => ({
+  type: REMOVE_TEAM_MEMBER_REQUEST
+});
+
+export const REMOVE_TEAM_MEMBER_SUCCESS = 'REMOVE_TEAM_MEMBER_SUCCESS';
+export const removeTeamMemberSuccess = (member_id, chamber) => ({
+	type: REMOVE_TEAM_MEMBER_SUCCESS,
+	member_id,
+	chamber
+});
+
+export const REMOVE_TEAM_MEMBER_ERROR = 'REMOVE_TEAM_MEMBER_ERROR';
+export const removeTeamMemberError = error => ({
+  type: REMOVE_TEAM_MEMBER_ERROR,
+  error
+});
+
+export const removeTeamMember = (member_id, chamber) => (dispatch, getState) => {
+	dispatch(removeTeamMemberRequest());
+	const authToken = getState().auth.authToken;
+	return fetch(`${API_BASE_URL}/user/self/${chamber}/${member_id}`, 
+		{
+      method: 'DELETE',
+      headers: {
+				'Accept': 'application/json',
+				'Authorization': `Bearer ${authToken}`
+			}
+		}).then(res => {
+			if (!res.ok) {
+				return Promise.reject('Something has gone wrong');
+			}
+			return res.text()
+		})
+		.then(() => {
+			dispatch(removeTeamMemberSuccess(member_id, chamber));
+		})
+		.catch(err =>
+			dispatch(removeTeamMemberError(err))
+		)
+}

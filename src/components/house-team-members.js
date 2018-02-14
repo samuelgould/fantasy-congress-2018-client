@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { removeTeamMember } from '../actions/user';
 import './house-team-member.css';
 
 export class HouseTeamMembers extends React.Component {
     
     render() {
-            const houseTeamMembers = this.props.house.map(member => {
+            let houseTeamMembers = this.props.house.map(member => {
                 return (
-                    <li className="js-member-id-element" key={member.candidate_id._id}>
+                    <li key={member.candidate_id._id}>
                             <div className="member-container">
                                 <div className="member-information">
                                     <img className="member-headshot" src={member.candidate_id.image} alt="member headshot" />
@@ -16,11 +17,19 @@ export class HouseTeamMembers extends React.Component {
                                         <div className="member-congress-info">{member.candidate_id.state} {member.candidate_id.district}</div>
                                     </div>
                                 </div>
-                                <div className="member-price">${member.candidate_id.price}</div>
+                                <div className="adding-member">
+							        <div className="member-price">${member.candidate_id.price}</div>
+							        <button value={member._id} onClick={ event => this.props.dispatch(removeTeamMember(event.currentTarget.value, 'house')) }>Remove from Team</button>
+						        </div>
                             </div>
                       </li>
                 )
             })
+            if (this.props.house.length < 8) {
+                for (let i=1; i<(9 - this.props.house.length); i++) {
+                    houseTeamMembers = [...houseTeamMembers, <li key={i} className="empty-roster-spot">{i}. House Candidate</li>]
+                }
+            }
     return (
         <ul>
             {houseTeamMembers}
