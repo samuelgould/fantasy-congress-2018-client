@@ -1,18 +1,35 @@
 .team-page {
-    position: fixed;
-    top: 0;
-    right: 2.5%;
-    width: 40%;
+    float: left;
+    height: 100%;
+    width: 43.5%;
+    overflow-y: auto;
 }
 
 .header {
     padding-left: 40px;
 }
 
+.submit-button-container {
+    width: 100%;
+    text-align: center;
+}
+
+.submit-button {
+    margin-top: 20px;
+    font-size: 24px;
+}
+
 .budget {
     padding-left: 40px;
     font-size: 24px;
     font-weight: bold;
+}
+
+.overbudget {
+    color: red;
+}
+
+.underbudget {
     color: green;
 }
 

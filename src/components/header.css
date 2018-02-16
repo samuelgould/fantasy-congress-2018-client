@@ -1,0 +1,26 @@
+#fantasy-congress-2018-logo {
+    width: 600px;
+}
+
+#fantasy-congress-2018-logo-thumbnail {
+    width: 100px;
+    margin: 10px;
+}
+
+.header-box {
+    position: relative;
+}
+
+.landing-page {
+    text-align: center;
+}
+
+.logged-in {
+    text-align: left;
+}
+
+#logout-button {
+    position: absolute;
+    right: 10px;
+    top: 25px;
+}

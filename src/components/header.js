@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { clearAuth } from '../actions/auth';
 import { clearAuthToken } from '../local-storage';
+import './header.css';
 
 export class Header extends React.Component {
     logOut() {
@@ -11,14 +12,19 @@ export class Header extends React.Component {
 
     render() {
         let logOutButton;
+        let logo = 'fantasy-congress-2018-logo'
+        let header = 'header-box landing-page'
+
         if (this.props.loggedIn) {
             logOutButton = (
-                <button onClick={() => this.logOut()}>Log out</button>
+                <button id="logout-button" onClick={() => this.logOut()}>Log out</button>
             );
+            logo = 'fantasy-congress-2018-logo-thumbnail';
+            header = 'header-box logged-in'
         }
         return (
-            <div className="header">
-                <h1>Fantasy Congress 2018</h1>
+            <div className={header}>
+                <img id={logo} src="https://i.imgur.com/rcKFcKC.png" alt="Fantasy Congress 2018 Logo" />
                 {logOutButton}
             </div>
         );
