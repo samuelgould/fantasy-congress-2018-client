@@ -5,20 +5,27 @@
     height: 42px;
     width: 90%;
     line-height: 42px;
-    padding: 0 16px;
+    padding: 0px 16px;
     background-color: #F5F5F5;
     color: #212121;
     border: 0;
     border-radius: 4px 0 0 4px;
+    margin-bottom: 10px;
 }
 
-#search-bar {
+.candidate-name-input-search-bar {
     background-color: #F5F5F5;
     border: none;
-    width: 75%;
+    width: 60%;
     font-size: 16px;
 }
 
 #search-bar:focus {
     outline: none;
+}
+
+@media screen and (min-width: 500px) {
+    .candidate-name-input-search-bar {
+        width: 75%;
+    }
 }

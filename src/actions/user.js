@@ -87,7 +87,7 @@ export const addCandidate = (candidate_id, chamber) => (dispatch, getState) => {
 		{
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
+        		'Content-Type': 'application/json',
 				'Accept': 'application/json',
 				'Authorization': `Bearer ${authToken}`
 			}
@@ -145,4 +145,19 @@ export const removeTeamMember = (member_id, chamber) => (dispatch, getState) => 
 		.catch(err =>
 			dispatch(removeTeamMemberError(err))
 		)
-}
+};
+
+export const TOGGLE_MENU_VISIBILITY = 'TOGGLE_MENU_VISIBILITY';
+export const toggleMenuVisibility = () => ({
+	type: TOGGLE_MENU_VISIBILITY
+});
+
+export const DISPLAY_TEAM_VIEW = 'DISPLAY_TEAM_VIEW';
+export const displayTeamView = () => ({
+	type: DISPLAY_TEAM_VIEW
+})
+
+export const DISPLAY_CANDIDATE_SEARCH_VIEW = 'DISPLAY_CANDIDATE_SEARCH_VIEW';
+export const displayCandidateSearchView = () => ({
+	type: DISPLAY_CANDIDATE_SEARCH_VIEW
+})

@@ -1,8 +1,15 @@
+.dashboard {
+    display: block;
+}
+
 .search {
-    width: 55%;
     float: left;
     height: 100%;
     overflow-y: auto;
+}
+
+.team-preview-container {
+    width: 100%;
 }
 
 .D {
@@ -13,7 +20,21 @@
     background: linear-gradient(to right,#dd5349,#E7E6E1);
 }
 
+.I {
+    background: linear-gradient(to right,#5b456f,#E7E6E1)
+}
+
 .icon-credit {
     display: block;
     margin: 15px;
+}
+
+.mobile-focus {
+    width: 100%;
+}
+
+@media screen and (min-width: 1000px) {
+    .search {
+        width: 55%;
+    }
 }

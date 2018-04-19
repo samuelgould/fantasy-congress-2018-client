@@ -1,20 +1,26 @@
 .team-page {
     float: left;
+    width: 95%;
     height: 100%;
-    width: 43.5%;
-    overflow-y: auto;
+    margin: 0 2.5%;
+    margin-bottom: 15px;
+}
+
+.team-header {
+    margin: 0px 0px 10px 0px;
+}
+
+.candidate-preview-container {
+    display: flex;
+    align-items: center;
+    height: 20px;
 }
 
 .team-information-container {
     background: #f4f7f8;
-    /* margin: 0 2.5%; */
+    color: #212121;
     padding: 20px;
     border-radius: 8px;
-}
-
-.team-header {
-    margin: 0 0 10px 0;
-    padding-left: 40px;
 }
 
 .submit-button-container {
@@ -28,8 +34,7 @@
 }
 
 .budget {
-    padding-left: 40px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -48,4 +53,18 @@
 
 .manager {
     font-size: 16px;
+}
+
+@media screen and (min-width: 1000px) {
+    .mobile-only {
+        display: none;
+    }
+
+    .team-page {
+        float: left;
+        height: 100%;
+        width: 43.5%;
+        overflow-y: auto;
+        margin: 0;
+    }
 }

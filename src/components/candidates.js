@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCandidates } from '../actions/candidates';
+import { Link } from 'react-router-dom';
+import { fetchCandidates, fetchCandidate } from '../actions/candidates';
 import { addCandidate } from '../actions/user';
 import './candidates.css';
 
@@ -9,10 +10,28 @@ export class Candidates extends React.Component {
 		this.props.dispatch(fetchCandidates());
 	}
 
+	_getFilters(budget) {
+		const candidateFilters = [];
+		if (this.props.incumbent) {
+			candidateFilters.push(candidate => candidate.incumbent === true);
+		} if (this.props.chamber !== 'both') {
+			candidateFilters.push(candidate => candidate.chamber.toLowerCase() === this.props.chamber);
+		} if (this.props.state !== 'all') {
+			candidateFilters.push(candidate => candidate.state === this.props.state);
+		} if (this.props.party !== 'all') {
+			candidateFilters.push(candidate => candidate.party === this.props.party);
+		} if (this.props.price !== 'any') {
+			candidateFilters.push(candidate => candidate.price < this.props.price);
+		} if (this.props.affordable) {
+			candidateFilters.push(candidate => candidate.price < budget);
+		}
+		return candidateFilters;
+	}
+
 	render() {
 		let candidates = this.props.candidates;
-		let senate = this.props.senate;
-		let house = this.props.house;
+		const senate = this.props.senate;
+		const house = this.props.house;
 		
 		for (let i=0; i<senate.length; i++){
 			candidates = candidates.filter(candidate => candidate._id !== senate[i].candidate_id._id);
@@ -32,20 +51,9 @@ export class Candidates extends React.Component {
 			budget = budget - house[i].candidate_id.price;
 		}
 
-		if(this.props.filters){
-			if (this.props.incumbent) {
-				candidates = candidates.filter(candidate => candidate.incumbent === true)
-			} if (this.props.chamber !== 'both') {
-				candidates = candidates.filter(candidate => candidate.chamber.toLowerCase() === this.props.chamber)
-			} if (this.props.state !== 'all') {
-				candidates = candidates.filter(candidate => candidate.state === this.props.state)
-			} if (this.props.party !== 'all') {
-				candidates = candidates.filter(candidate => candidate.party === this.props.party)
-			} if (this.props.price !== 'any') {
-				candidates = candidates.filter(candidate => candidate.price < this.props.price)
-			} if (this.props.affordable) {
-				candidates = candidates.filter(candidate => candidate.price < budget)
-			}
+		if(this.props.filters) {
+			const candidateFilters = this._getFilters(budget);
+			candidates = candidateFilters.reduce((accumulator, filter) => accumulator.filter(filter), candidates);
 		}
 
 		if (this.props.searchString !== '') {
@@ -71,9 +79,8 @@ export class Candidates extends React.Component {
 				<li className={candidate.party} key={candidate._id}>
 					<div className="candidate-container">
 						<div className="candidate-information">
-							{/* <img className="candidate-headshot" src={candidate.image} alt="candidate headshot" /> */}
 							<div className="candidate-stats">
-								<div className="candidate-name">{candidate.name} ({candidate.party})</div>
+								<Link to='/candidate' className="candidate-name" onClick={() => this.props.dispatch(fetchCandidate(candidate._id))}>{candidate.name} ({candidate.party})</Link>
 								<div className="candidate-congress-info">{candidate.chamber}: {candidate.state} {candidate.district}</div>
 							</div>
 						</div>
