@@ -4,6 +4,7 @@ import requiresLogin from './requires-login';
 import Menu from './menu';
 import TeamPage from './team-page';
 import TeamPreview from './team-preview';
+import TwitterTimeline from './twitter-timeline';
 import { addCandidate } from '../actions/user';
 import './candidate-view.css';
 
@@ -86,10 +87,18 @@ export class CandidateView extends React.Component {
                 affordibility = 'price-too-expensive';
             }
             
-            individualCandidate = 
+            let twitterTimeline;
+
+            if (this.props.candidate.screenName) {
+                twitterTimeline = (
+                    <TwitterTimeline screenName={this.props.candidate.screenName} />
+                )
+            }
+
+            individualCandidate = (
                 <div className="individual-candidate-container">
                     <div className="individual-candidate-information">
-                        <div className="candidate-stats">
+                        <div className="candidate-details">
                             <div className="individual-candidate-name">{candidate.name}</div>
                             <div>{party}</div>
                             <br />
@@ -97,12 +106,14 @@ export class CandidateView extends React.Component {
                             <div>{candidate.state} {district}</div>
                             <br />
                             <div className={affordibility}>Price: ${candidate.price}</div>
-                        </div>
-                        <div className="adding-candidate">
                             {button}
+                        </div>
+                        <div className='twitter-timeline-container'>
+                            {twitterTimeline}
                         </div>
                     </div>
                 </div>
+            );
         }
 
         let menu;
