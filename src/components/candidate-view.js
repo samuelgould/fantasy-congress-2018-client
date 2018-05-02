@@ -11,10 +11,16 @@ import './candidate-view.css';
 
 export class CandidateView extends React.Component {
     render() {
-        if (!this.props.candidate) {
+        if (!this.props.candidateSelected) {
             return <Redirect to="/dashboard" />;
         }
         
+        if (!this.props.candidate) {
+            return (
+                <div className="individual-candidate-container"></div>
+            )
+        }
+
         const candidate = this.props.candidate;
         const senate = this.props.senate;
 		const house = this.props.house;
@@ -135,10 +141,8 @@ export class CandidateView extends React.Component {
 }
 
 const mapStateToProps = state => {
-    const {currentUser} = state.auth;
     return {
-        username: state.auth.currentUser.username,
-        name: `${currentUser.firstName} ${currentUser.lastName}`,
+        candidateSelected: state.candidates.candidateSelected,
         candidate: state.candidates.candidate,
         menuVisible: state.user.menuVisible,
         senate: state.user.user.senate || [],
