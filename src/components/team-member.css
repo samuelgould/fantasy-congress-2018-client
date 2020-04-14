@@ -1,3 +1,7 @@
+ul {
+    padding: 0px;
+}
+
 .member-container {
     display: flex;
     justify-content: space-between;
