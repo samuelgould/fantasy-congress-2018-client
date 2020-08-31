@@ -3,24 +3,25 @@ import { SubmissionError } from 'redux-form';
 import { API_BASE_URL } from '../config'
 
 export const registerUser = user => dispatch => {
-	return fetch(`${API_BASE_URL}/user`, {
+	return fetch(`${API_BASE_URL}/user`,
+		{
 			method: 'POST',
 			headers: {
-					'content-type': 'application/json'
+				'content-type': 'application/json'
 			},
 			body: JSON.stringify(user)
-	})
-			.then(res => res.json())
-			.catch(err => {
-					const {reason, message, location} = err;
-					if (reason === 'ValidationError') {
-							return Promise.reject(
-									new SubmissionError({
-											[location]: message
-									})
-							);
-					}
-			});
+		})
+		.then(res => res.json())
+		.catch(err => {
+			const {reason, message, location} = err;
+			if (reason === 'ValidationError') {
+				return Promise.reject(
+					new SubmissionError({
+						[location]: message
+					})
+				);
+			}
+		});
 };
 
 export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST';
@@ -43,12 +44,13 @@ export const fetchUserError = error => ({
 export const fetchUser = () => (dispatch, getState) => {
 	dispatch(fetchUserRequest());
 	const authToken = getState().auth.authToken;
-	return fetch(`${API_BASE_URL}/user/self`, {
-		method: 'GET',
-		headers: {
+	return fetch(`${API_BASE_URL}/user/self`,
+		{
+			method: 'GET',
+			headers: {
 				'Authorization': `Bearer ${authToken}`
-		}
-	})
+			}
+		})
 		.then(res => {
 			if (!res.ok) {
 				return Promise.reject('Something has gone wrong');
@@ -87,11 +89,12 @@ export const addCandidate = (candidate_id, chamber) => (dispatch, getState) => {
 		{
       method: 'PUT',
       headers: {
-        		'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
 				'Accept': 'application/json',
 				'Authorization': `Bearer ${authToken}`
 			}
-		}).then(res => {
+		})
+		.then(res => {
 			if (!res.ok) {
 				return Promise.reject('Something has gone wrong');
 			}
@@ -133,7 +136,8 @@ export const removeTeamMember = (member_id, chamber) => (dispatch, getState) => 
 				'Accept': 'application/json',
 				'Authorization': `Bearer ${authToken}`
 			}
-		}).then(res => {
+		})
+		.then(res => {
 			if (!res.ok) {
 				return Promise.reject('Something has gone wrong');
 			}
@@ -189,7 +193,8 @@ export const submitTeam = () => (dispatch, getState) => {
 				'Accept': 'application/json',
 				'Authorization': `Bearer ${authToken}`
 			}
-		}).then(res => {
+		})
+		.then(res => {
 			if (!res.ok) {
 				return Promise.reject('Something has gone wrong');
 			}

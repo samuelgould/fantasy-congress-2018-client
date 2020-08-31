@@ -6,21 +6,21 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import store from './store';
 import './index.css';
-import App from './components/App';
+import App from './components/App/App';
 
 ReactDOM.render(
 	<Provider store={store}>
-    	<CanduProvider
-				clientToken='tu5pUaW7Lc'
-				// styleguide={{
-				// 	...bootstrapStyleguide,
-				// }}
-				userId='myUserId'
-			>
-				<Router>
-					<App />
-				</Router>
-			</CanduProvider>
+    <CanduProvider
+			clientToken='tu5pUaW7Lc'
+			// styleguide={{
+			// 	...bootstrapStyleguide,
+			// }}
+			userId='myUserId'
+		>
+			<Router>
+				<App />
+			</Router>
+		</CanduProvider>
 	</Provider>, 
   document.getElementById('root')
 );

@@ -1,0 +1,89 @@
+ul {
+  list-style-type: none;
+}
+
+.candidate-list {
+  height: 800px;
+  overflow-y: auto;
+  padding: 0 2.5%;
+}
+
+li {
+  padding: 10px;
+  margin: 5px 0px;
+  line-height: 1.35;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+button {
+  color: white;
+  background: #4C8FFB;
+  border: 1px #3079ED solid;
+  box-shadow: inset 0 1px 0 #80B0FB;
+  padding: 5px 10px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 9pt;
+  outline: none;
+}
+
+button:hover {
+  border: 1px #2F5BB7 solid;
+  box-shadow: 0 1px 1px #EAEAEA, inset 0 1px 0 #5A94F1;
+  background: #3F83F1;
+}
+
+button:active {
+  box-shadow: inset 0 2px 5px #2370FE;   
+}
+
+.candidate-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.candidate-information {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.candidate-name {
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+  text-decoration: none;
+}
+
+.candidate-name:hover, .candidate-name:focus {
+  text-decoration: underline;
+}
+
+.candidate-congress-info {
+  font-size: 24px;
+}
+
+.candidate-headshot {
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid #C1C0B9;
+  box-shadow: 0 0 2px #C1C0B9;
+  margin: 10px;
+}
+
+.price-affordable {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.price-too-expensive {
+  font-size: 36px;
+  font-weight: bold;
+  color: red;
+}
+
+.adding-candidate {
+  text-align: center;
+}

@@ -89,8 +89,8 @@ export const fetchCandidates = () => (dispatch, getState) => {
   		method: 'GET',
   		headers: {
 			'Authorization': `Bearer ${authToken}`
-		}
-	})
+			}
+		})
 		.then(res => {
 			if (!res.ok) {
 				return Promise.reject('Something has gone wrong');
@@ -106,25 +106,25 @@ export const fetchCandidates = () => (dispatch, getState) => {
 }
 
 export const fetchCandidate = candidateId => (dispatch, getState) => {
-		dispatch(fetchCandidateRequest());
-		const authToken = getState().auth.authToken;
-		return fetch(`${API_BASE_URL}/candidates/${candidateId}`, 
-			{
-			  method: 'GET',
-			  headers: {
+	dispatch(fetchCandidateRequest());
+	const authToken = getState().auth.authToken;
+	return fetch(`${API_BASE_URL}/candidates/${candidateId}`, 
+		{
+		  method: 'GET',
+			headers: {
 				'Authorization': `Bearer ${authToken}`
 			}
 		})
-			.then(res => {
-				if (!res.ok) {
-					return Promise.reject('Something has gone wrong');
-				}
-				return res.json()
-			})
-			.then(candidate => {
-				dispatch(fetchCandidateSuccess(candidate))
-			})
-			.catch(err => 
-				dispatch(fetchCandidateError(err))
-			)
-		}
+		.then(res => {
+			if (!res.ok) {
+				return Promise.reject('Something has gone wrong');
+			}
+			return res.json()
+		})
+		.then(candidate => {
+			dispatch(fetchCandidateSuccess(candidate))
+		})
+		.catch(err => 
+			dispatch(fetchCandidateError(err))
+		)
+}
