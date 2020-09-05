@@ -7,7 +7,9 @@ import './candidates.css';
 
 export class Candidates extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(fetchCandidates());
+		if (this.props.candidates.length === 0) {
+			this.props.dispatch(fetchCandidates());
+		}
 	}
 
 	_getFilters(budget) {
@@ -76,7 +78,7 @@ export class Candidates extends React.Component {
 			}
 			
 			return (
-				<Link to='/candidate' className="candidate-card" onClick={() => this.props.dispatch(fetchCandidate(candidate._id))} key={candidate._id}>
+				<Link to={`${this.props.match.url}/candidate`} className="candidate-card" onClick={() => this.props.dispatch(fetchCandidate(candidate._id))} key={candidate._id}>
 					<li className={candidate.party} key={candidate._id}>
 						<div className="candidate-container">
 							<div className="candidate-information">

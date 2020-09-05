@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Portal } from '@candulabs/react-sdk';
-import { Link, Redirect } from 'react-router-dom';
+// import { Portal } from '@candulabs/react-sdk';
+import { Redirect } from 'react-router-dom';
 import './landing-page.css';
 
 export function LandingPage(props) {
@@ -11,9 +11,9 @@ export function LandingPage(props) {
 
   return (
     <div className='landing-page-container'>
-      <div className='candu'>
+      {/* <div className='candu'>
         <Portal slug='sam-test' />
-      </div>
+      </div> */}
     </div>
   );
 }

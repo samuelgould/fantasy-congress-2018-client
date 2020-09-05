@@ -1,4 +1,5 @@
-import { 
+import {
+	CLEAR_CANDIDATE,
 	FETCH_CANDIDATES_REQUEST, 
 	FETCH_CANDIDATES_SUCCESS, 
 	FETCH_CANDIDATES_ERROR,
@@ -61,6 +62,10 @@ export const reducer = (state = initialState, action) => {
 		return Object.assign({}, state, {
 			loading: false,
 			error: action.error
+		})
+	} else if (action.type === CLEAR_CANDIDATE) {
+		return Object.assign({}, state, {
+			candidate: null
 		})
 	} else if (action.type === SEARCH_CANDIDATES) {
 		return Object.assign({}, state, {

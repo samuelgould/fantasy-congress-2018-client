@@ -2,14 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import requiresLogin from '../Util/requires-login';
-import Menu from '../Menu/menu';
-import TeamPage from '../TeamPage/team-page';
-import TeamPreview from '../TeamPreview/team-preview';
 import TwitterTimeline from './twitter-timeline';
+import { clearCandidate } from '../../actions/candidates';
 import { addCandidate, removeTeamMember } from '../../actions/user';
 import './candidate-view.css';
 
 export class CandidateView extends React.Component {
+	componentWillUnmount() {
+		this.props.dispatch(clearCandidate());
+	}
+
   render() {
   	if (!this.props.candidateSelected) {
       return <Redirect to="/dashboard" />;
@@ -49,13 +51,13 @@ export class CandidateView extends React.Component {
 		if (candidate.chamber === 'Senate') {
 			for (let i=0; i<senate.length; i++){
         if (candidate._id === senate[i].candidate_id._id) {
-					button = <button className='button-tertiary' value={candidate._id} onClick={ event => this.props.dispatch(removeTeamMember(event.currentTarget.value, 'senate')) }>Remove</button>;
+					button = <button className='button-tertiary' value={senate[i]._id} onClick={ event => this.props.dispatch(removeTeamMember(event.currentTarget.value, 'senate')) }>Remove</button>;
         }
       }
 		} else {
 			for (let i=0; i<house.length; i++){
         if (candidate._id === house[i].candidate_id._id) {
-          button = button = <button className='button-tertiary' value={candidate._id} onClick={ event => this.props.dispatch(removeTeamMember(event.currentTarget.value, 'house')) }>Remove</button>;
+          button = button = <button className='button-tertiary' value={house[i]._id} onClick={ event => this.props.dispatch(removeTeamMember(event.currentTarget.value, 'house')) }>Remove</button>;
         }
       }
 		}
@@ -102,13 +104,23 @@ export class CandidateView extends React.Component {
 
     if (this.props.candidate.twitterHandle) {
       twitterTimeline = (
-        <TwitterTimeline twitterHandle={this.props.candidate.twitterHandle} />
+				<div className='twitter-timeline-container'>
+					<TwitterTimeline twitterHandle={'SpeakerPelosi'} />
+				</div>
       )
-    }
+		}
+		
+		const closeIcon = (
+			<div className='close-container'>
+				<div className='close-stripe left-stripe'></div>
+				<div className='close-stripe right-stripe'></div>
+			</div>
+		);
 
     individualCandidate = (
       <div className="individual-candidate-container">
         <div className="individual-candidate-information">
+					{closeIcon}
           <div className="candidate-details">
             <div className="individual-candidate-name">{candidate.name}</div>
             <div>{party}</div>
@@ -119,26 +131,14 @@ export class CandidateView extends React.Component {
             <div className={affordibility}>Price: ${candidate.price}</div>
             {button}
           </div>
-          <div className='twitter-timeline-container'>
-            {twitterTimeline}
-          </div>
+          {twitterTimeline}
         </div>
       </div>
-    );
-
-    let menu;
-		if (this.props.menuVisible) {
-      menu = <Menu />;
-    }
-
+		);
+	
     return (
     	<div className="candidate-view">
-        {menu}
-        <TeamPreview />
         {individualCandidate}
-        <div className="desktop">
-          <TeamPage />
-        </div>
       </div>
     );
   }

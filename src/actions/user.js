@@ -127,6 +127,8 @@ export const removeTeamMemberError = error => ({
 });
 
 export const removeTeamMember = (member_id, chamber) => (dispatch, getState) => {
+	console.log('testing', member_id);
+	console.log('chamber', chamber);
 	dispatch(removeTeamMemberRequest());
 	const authToken = getState().auth.authToken;
 	return fetch(`${API_BASE_URL}/user/self/${chamber}/${member_id}`, 

@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import { fetchUser, submitTeam } from '../../actions/user';
 import SenateTeamMembers from '../TeamMembers/senate-team-members';
 import HouseTeamMembers from '../TeamMembers/house-team-members';
 import Menu from '../Menu/menu';
+import Modal from '../Util/modal';
+import CandidateView from '../CandidateView/candidate-view';
 import './team-page.css';
 
 export class TeamPage extends React.Component {
@@ -13,9 +16,7 @@ export class TeamPage extends React.Component {
 
 	render() {
 
-		const user = this.props.user;
-		const senate = this.props.senate;
-		const house = this.props.house;
+		const { house, senate, user } = this.props;
 		let budget = this.props.budget;
 
 		for (let i=0; i<senate.length; i++) {
@@ -39,18 +40,36 @@ export class TeamPage extends React.Component {
 		}
 
 		let teamPageViewing = 'team-page desktop';
-		if (this.props.teamVisible) {
+		let candidateViewModal = null;
+		if (!this.props.dashboardView) {
 			teamPageViewing = 'team-page';
+			candidateViewModal = (	
+				<Route
+					path={`${this.props.match.url}/candidate`}
+					render={() => {
+						return (
+							<Modal
+								onClick={() => {
+									this.props.history.push(this.props.match.url);
+								}}
+							>
+								<CandidateView />
+							</Modal>
+						);
+					}}
+				/>
+			)
 		}
 		
 		let menu;
 		if (this.props.menuVisible) {
-            menu = <Menu />;
-        }
-
+      menu = <Menu />;
+		}
+	
 		return (
 			<div className={teamPageViewing}>
 				{menu}
+				{candidateViewModal}
 				<div className="team-information-container">
 					<h2 className='team-header'>
 						<div className='team-name'>{user.teamName}</div> 
@@ -67,11 +86,11 @@ export class TeamPage extends React.Component {
 					<h3 className="chamber header">
 						SENATE
 					</h3>
-					<SenateTeamMembers />
+					<SenateTeamMembers match={this.props.match} />
 					<h3 className="chamber header">
 						HOUSE OF REPRESENTATIVES
 					</h3>
-					<HouseTeamMembers />
+					<HouseTeamMembers match={this.props.match} />
 				</div>
       		</div>
 		)

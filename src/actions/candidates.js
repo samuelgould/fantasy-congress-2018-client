@@ -1,5 +1,10 @@
 import { API_BASE_URL } from '../config'
 
+export const CLEAR_CANDIDATE = 'CLEAR_CANDIDATE';
+export const clearCandidate = () => ({
+  type: CLEAR_CANDIDATE
+});
+
 export const FETCH_CANDIDATES_REQUEST = 'FETCH_CANDIDATES_REQUEST';
 export const fetchCandidatesRequest = () => ({
   type: FETCH_CANDIDATES_REQUEST

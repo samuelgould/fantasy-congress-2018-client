@@ -9,7 +9,7 @@ export class SenateTeamMembers extends React.Component {
   render() {
     let senateTeamMembers = this.props.senate.map(member => {
       return (
-        <Link to='/candidate' className="member-name" onClick={() => this.props.dispatch(fetchCandidate(member.candidate_id._id))}>
+        <Link to={`${this.props.match.url}/candidate`} className="member-name" onClick={() => this.props.dispatch(fetchCandidate(member.candidate_id._id))}>
 					<li key={member.candidate_id._id} className={member.candidate_id.party}>
 						<div className="member-container">
 							<div className="member-information">

@@ -65,39 +65,39 @@ export class TeamPage extends React.Component {
 
 		return (
 			<div className='team-preview team-information-preview-container mobile-only'>
-				<Link to='/team-page' className='team-page-link'>
-					<div className='mobile-preview team-name-link' onClick={() => this.props.dispatch(displayTeamView())}>
+				<Link to='/team-page' className='team-page-link' onClick={() => this.props.dispatch(displayTeamView())}>
+					<div className='mobile-preview team-name-link'>
 						Team Name: <span className='team-name-text'>{user.teamName}</span>
 					</div>
-				</Link>
-				<div className='mobile-preview'>
-					Remaining Budget: <span className={budgetValue}>${budget}</span>
-				</div>
-				<div className='members-submit-container'>
-					<div>
-						<div className='senate candidate-preview-container'>
-							<p>Senate: </p>
-							<p className={senateTeamMembersStyling[0]}></p>
-							<p className={senateTeamMembersStyling[1]}></p>
-							<p className={senateTeamMembersStyling[2]}></p>
-							<p className={senateTeamMembersStyling[3]}></p>
+					<div className='mobile-preview'>
+						Remaining Budget: <span className={budgetValue}>${budget}</span>
+					</div>
+					<div className='members-submit-container'>
+						<div>
+							<div className='senate candidate-preview-container'>
+								<p>Senate: </p>
+								<p className={senateTeamMembersStyling[0]}></p>
+								<p className={senateTeamMembersStyling[1]}></p>
+								<p className={senateTeamMembersStyling[2]}></p>
+								<p className={senateTeamMembersStyling[3]}></p>
+							</div>
+							<div className='house candidate-preview-container'>
+								<p>House: </p>
+								<p className={houseTeamMembersStyling[0]}></p>
+								<p className={houseTeamMembersStyling[1]}></p>
+								<p className={houseTeamMembersStyling[2]}></p>
+								<p className={houseTeamMembersStyling[3]}></p>
+								<p className={houseTeamMembersStyling[4]}></p>						
+								<p className={houseTeamMembersStyling[5]}></p>
+								<p className={houseTeamMembersStyling[6]}></p>
+								<p className={houseTeamMembersStyling[7]}></p>
+							</div> 
 						</div>
-						<div className='house candidate-preview-container'>
-							<p>House: </p>
-							<p className={houseTeamMembersStyling[0]}></p>
-							<p className={houseTeamMembersStyling[1]}></p>
-							<p className={houseTeamMembersStyling[2]}></p>
-							<p className={houseTeamMembersStyling[3]}></p>
-							<p className={houseTeamMembersStyling[4]}></p>						
-							<p className={houseTeamMembersStyling[5]}></p>
-							<p className={houseTeamMembersStyling[6]}></p>
-							<p className={houseTeamMembersStyling[7]}></p>
-						</div> 
+						<div className='senate-submit-team-preview'>	
+							{button}
+						</div>
 					</div>
-					<div className='senate-submit-team-preview'>	
-						{button}
-					</div>
-				</div>
+				</Link>
       </div>
 		)
 	}
@@ -105,7 +105,6 @@ export class TeamPage extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.user.user,
-	teamVisible: state.user.teamVisible,
 	teamSubmitted: state.user.user.teamSubmitted || false,
 	senate: state.user.user.senate || [],
 	house: state.user.user.house || [],

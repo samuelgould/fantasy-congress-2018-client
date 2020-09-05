@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchCandidate } from '../../actions/candidates';
-import { removeTeamMember } from '../../actions/user';
 import './team-member.css';
 
 export class HouseTeamMembers extends React.Component {
@@ -10,7 +9,7 @@ export class HouseTeamMembers extends React.Component {
   render() {
     let houseTeamMembers = this.props.house.map(member => {
       return (
-				<Link to='/candidate' className="member-name" onClick={() => this.props.dispatch(fetchCandidate(member.candidate_id._id))}>
+				<Link to={`${this.props.match.url}/candidate`} className="member-name" onClick={() => this.props.dispatch(fetchCandidate(member.candidate_id._id))}>
 					<li key={member.candidate_id._id} className={member.candidate_id.party}>
 						<div className="member-container">
 							<div className="member-information">
