@@ -6,7 +6,7 @@ import Menu from '../Menu/menu';
 import TeamPage from '../TeamPage/team-page';
 import TeamPreview from '../TeamPreview/team-preview';
 import TwitterTimeline from './twitter-timeline';
-import { addCandidate } from '../../actions/user';
+import { addCandidate, removeTeamMember } from '../../actions/user';
 import './candidate-view.css';
 
 export class CandidateView extends React.Component {
@@ -39,22 +39,26 @@ export class CandidateView extends React.Component {
     let button;
 
     if (senate.length < 4 && candidate.chamber === 'Senate') {
-      button = <button value={candidate._id} onClick={ event => this.props.dispatch(addCandidate(event.currentTarget.value, 'senate')) }>Add</button>
-      for (let i=0; i<senate.length; i++){
-        if (candidate._id === senate[i].candidate_id._id) {
-					button = <div className="hide"></div>
-        }
-      }
-    }
+      button = <button className='button-primary' value={candidate._id} onClick={ event => this.props.dispatch(addCandidate(event.currentTarget.value, 'senate')) }>Add</button>
+		}
 
     if (house.length < 8 && candidate.chamber === 'House') {
-      button = <button value={candidate._id} onClick={ event => this.props.dispatch(addCandidate(event.currentTarget.value, 'house')) }>Add</button>
-      for (let i=0; i<house.length; i++){
-        if (candidate._id === house[i].candidate_id._id) {
-          button = <div className="hide"></div>
+      button = <button className='button-primary' value={candidate._id} onClick={ event => this.props.dispatch(addCandidate(event.currentTarget.value, 'house')) }>Add</button>
+		}
+		
+		if (candidate.chamber === 'Senate') {
+			for (let i=0; i<senate.length; i++){
+        if (candidate._id === senate[i].candidate_id._id) {
+					button = <button className='button-tertiary' value={candidate._id} onClick={ event => this.props.dispatch(removeTeamMember(event.currentTarget.value, 'senate')) }>Remove</button>;
         }
       }
-    }
+		} else {
+			for (let i=0; i<house.length; i++){
+        if (candidate._id === house[i].candidate_id._id) {
+          button = button = <button className='button-tertiary' value={candidate._id} onClick={ event => this.props.dispatch(removeTeamMember(event.currentTarget.value, 'house')) }>Remove</button>;
+        }
+      }
+		}
 
     let party;
 

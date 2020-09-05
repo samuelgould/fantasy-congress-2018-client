@@ -75,7 +75,7 @@ export class RegistrationForm extends React.Component {
         />
         <button
           type="submit"
-          className="register-button"
+          className='button-primary register-button'
           disabled={this.props.pristine || this.props.submitting}
 				>
             Register

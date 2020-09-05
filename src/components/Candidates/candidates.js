@@ -64,9 +64,9 @@ export class Candidates extends React.Component {
 			let button;
 
 			if (senate.length < 4 && candidate.chamber === 'Senate') {
-				button = <button value={candidate._id} onClick={ event => this.props.dispatch(addCandidate(event.currentTarget.value, 'senate')) }>Add</button>
+				button = <button className='button-primary' value={candidate._id} onClick={ event => this.props.dispatch(addCandidate(event.currentTarget.value, 'senate')) }>Add</button>
 			} if (house.length < 8 && candidate.chamber === 'House') {
-				button = <button value={candidate._id} onClick={ event => this.props.dispatch(addCandidate(event.currentTarget.value, 'house')) }>Add</button>
+				button = <button className='button-primary' value={candidate._id} onClick={ event => this.props.dispatch(addCandidate(event.currentTarget.value, 'house')) }>Add</button>
 			}
 
 			let affordibility = 'price-affordable';
@@ -76,20 +76,19 @@ export class Candidates extends React.Component {
 			}
 			
 			return (
-				<li className={candidate.party} key={candidate._id}>
-					<div className="candidate-container">
-						<div className="candidate-information">
-							<div className="candidate-stats">
-								<Link to='/candidate' className="candidate-name" onClick={() => this.props.dispatch(fetchCandidate(candidate._id))}>{candidate.name} ({candidate.party})</Link>
-								<div className="candidate-congress-info">{candidate.chamber}: {candidate.state} {candidate.district}</div>
+				<Link to='/candidate' className="candidate-card" onClick={() => this.props.dispatch(fetchCandidate(candidate._id))} key={candidate._id}>
+					<li className={candidate.party} key={candidate._id}>
+						<div className="candidate-container">
+							<div className="candidate-information">
+								<div className="candidate-stats">
+									<div className="candidate-name">{candidate.name} ({candidate.party})</div>
+									<div className="candidate-congress-info">{candidate.chamber}: {candidate.state} {candidate.district}</div>
+								</div>
 							</div>
-						</div>
-						<div className="adding-candidate">
 							<div className={affordibility}>${candidate.price}</div>
-							{button}
 						</div>
-					</div>
-			  </li>
+					</li>
+				</Link>
 			)
 		})
 

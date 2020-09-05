@@ -12,7 +12,6 @@ ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 75%;
 }
 
 .member-name {
@@ -20,10 +19,6 @@ ul {
   text-decoration: none;
   font-weight: bold;
   font-size: 16px;
-}
-
-.member-name:hover, .member-name:focus {
-  text-decoration: underline;
 }
 
 .member-headshot {
@@ -35,7 +30,7 @@ ul {
 }
 
 .member-price {
-  font-size: 24px;
+  font-size: 16px;
   font-weight: bold;
 }
 
@@ -56,10 +51,5 @@ ul {
   .member-name {
     font-weight: bold;
     font-size: 16px;
-  }
-
-  .member-price {
-    font-size: 24px;
-    font-weight: bold;
   }
 }

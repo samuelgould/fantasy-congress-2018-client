@@ -10,18 +10,16 @@ export class HouseTeamMembers extends React.Component {
   render() {
     let houseTeamMembers = this.props.house.map(member => {
       return (
-        <li key={member.candidate_id._id} className={member.candidate_id.party}>
-          <div className="member-container">
-            <div className="member-information">
-              {/* <img className="member-headshot verbose" src={member.candidate_id.image} alt="member headshot" /> */}
-              <Link to='/candidate' className="member-name" onClick={() => this.props.dispatch(fetchCandidate(member.candidate_id._id))}>{member.candidate_id.name} ({member.candidate_id.party}-{member.candidate_id.stateAbbr})</Link>
-              <div className="member-price">${member.candidate_id.price}</div>
-            </div>
-            <div className="removing-member">
-							<button value={member._id} onClick={ event => this.props.dispatch(removeTeamMember(event.currentTarget.value, 'house')) }>Remove</button>
-			      </div>
-          </div>
-        </li>
+				<Link to='/candidate' className="member-name" onClick={() => this.props.dispatch(fetchCandidate(member.candidate_id._id))}>
+					<li key={member.candidate_id._id} className={member.candidate_id.party}>
+						<div className="member-container">
+							<div className="member-information">
+								{member.candidate_id.name} ({member.candidate_id.party}-{member.candidate_id.stateAbbr})
+							</div>
+							<div className="member-price">${member.candidate_id.price}</div>
+						</div>
+					</li>
+				</Link>
       )
     })
     if (this.props.house.length < 8) {

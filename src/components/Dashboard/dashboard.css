@@ -12,16 +12,16 @@
   width: 100%;
 }
 
-.D {
-  background: linear-gradient(to right,#3b5ea0,#f4f7f8)
+.D:hover, .D:active {
+  box-shadow: 0 4px 4px 0 #3b5ea080;
 }
 
-.R {
-  background: linear-gradient(to right,#dd5349,#f4f7f8);
+.R:hover, .R:active {
+  box-shadow: 0 4px 4px 0 #ff696180;
 }
 
-.I {
-  background: linear-gradient(to right,#0B6623,#f4f7f8);
+.I:hover, .I:active {
+  box-shadow: 0 4px 4px 0 #0B662380;
 }
 
 .icon-credit {

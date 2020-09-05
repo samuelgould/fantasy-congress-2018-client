@@ -60,7 +60,7 @@ export class TeamPage extends React.Component {
 
 		let button;
 		if (senate.length === 4 && house.length === 8 && budget >= 0) {
-			button = <button className="submit-button" onClick={ event => this.props.dispatch(submitTeam()) }>Submit Roster</button>
+			button = <button className='button-primary submit-button' onClick={ event => this.props.dispatch(submitTeam()) }>Submit Roster</button>
 		}
 
 		return (

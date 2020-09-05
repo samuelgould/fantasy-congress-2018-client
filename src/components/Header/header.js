@@ -13,14 +13,14 @@ export class Header extends React.Component {
   }
 
   render() {
-    let logOutButton;
+    let logInOutButton;
     let hamburgerIcon;
     let logo = 'fantasy-congress-2018-logo';
     let header = 'header-box landing-page';
 
     if (this.props.loggedIn) {
-      logOutButton = (
-        <button className="desktop" id="logout-button" onClick={() => this.logOut()}>Log out</button>
+      logInOutButton = (
+        <button className='button-tertiary desktop loginout-button' id="logout-button" onClick={() => this.logOut()}>Log out</button>
       );
       logo = 'fantasy-congress-2018-logo-thumbnail';
       header = 'header-box header-logged-in';
@@ -37,13 +37,22 @@ export class Header extends React.Component {
           <div className="hamburger-stripe bottom-stripe"></div>
         </div>
 			);
-		}
+		} else {
+      logInOutButton = (
+        <Link to='/login'>
+          <button className='button-secondary loginout-button'>
+            Sign in
+          </button>
+        </Link>
+      );
+    }
+
     return (
       <div className={header}>
         <Link to='/dashboard' onClick={() => this.props.dispatch(displayCandidateSearchView())}>
 					<img id={logo} src="https://i.imgur.com/rcKFcKC.png" alt="Fantasy Congress 2018 Logo" />
         </Link>
-        {logOutButton}
+        {logInOutButton}
         {hamburgerIcon}
       </div>
     );
